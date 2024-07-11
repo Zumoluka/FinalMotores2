@@ -19,14 +19,17 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
 
-        foreach (Collider2D enemy in hitEnemies)
+        foreach (Collider enemy in hitEnemies)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            Enemy enemyComponent = enemy.GetComponent<Enemy>();
+            if (enemyComponent != null)
+            {
+                enemyComponent.TakeDamage(attackDamage);
+            }
         }
     }
-
     void OnDrawGizmosSelected()
     {
         if (attackPoint == null)

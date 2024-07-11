@@ -1,44 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float jumpForce = 10f;
-    private Rigidbody2D rb;
-    private bool isGrounded;
+    [SerializeField] private float force;
+    [SerializeField] Rigidbody rb;
+    public bool isGrounded;
+    public float jumpForce = 10;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
     }
 
-    void Update()
+
+    public void Update()
+
     {
-
-        float move = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(move * moveSpeed, rb.velocity.y);
-
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
+        rb.AddForce(direction * force, ForceMode.Force);
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            Jump();
         }
     }
-
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Choque contra: " + collision.gameObject.name);
+
+        if (collision.gameObject.CompareTag("Item"))
+        {
+
+            Debug.Log("ITEMMM >>>>>>>>>>>>>>>>");
+
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Kill"))
+        {
+
+            SceneManager.LoadScene(0);
+
+        }
         if (collision.collider.CompareTag("Ground"))
         {
             isGrounded = true;
         }
-    }
 
-    void OnCollisionExit2D(Collision2D collision)
+    }
+    void OnCollisionExit(Collision other)
     {
-        if (collision.collider.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
+        isGrounded = false;
+
+    }
+    void Jump()
+    {
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 }
