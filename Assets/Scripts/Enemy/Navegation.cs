@@ -18,11 +18,11 @@ public class Navegation : MonoBehaviour
     {
         agent.SetDestination(player.position);
     }
-    private void OnCollisionEnter(Collision collision)
+   /* private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             SceneManager.LoadScene(0);
         }
-    }
+    }*/
 }

@@ -31,11 +31,25 @@ namespace Retro.ThirdPersonCharacter
             _characterController = GetComponent<CharacterController>();
         }
 
-        private void Update()
+        /* private void Update()
+         {
+             if (_animator == null) return;
+
+             if(_combat.AttackInProgress)
+             {
+                 StopMovementOnAttack();
+             }
+             else
+             {
+                 Move();
+             }
+
+         }*/
+        private void FixedUpdate()
         {
             if (_animator == null) return;
 
-            if(_combat.AttackInProgress)
+            if (_combat.AttackInProgress)
             {
                 StopMovementOnAttack();
             }
@@ -43,7 +57,6 @@ namespace Retro.ThirdPersonCharacter
             {
                 Move();
             }
-
         }
         private void Move()
         {
@@ -78,6 +91,17 @@ namespace Retro.ThirdPersonCharacter
 
             _animator.SetFloat("InputX", lastMovementInput.x);
             _animator.SetFloat("InputY", lastMovementInput.y);
+        }
+        void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (hit.gameObject.tag == "Enemy")
+            {
+                PlayerHealth playerHealth = GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(10);
+                }
+            }
         }
     }
 }
