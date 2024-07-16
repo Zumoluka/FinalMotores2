@@ -4,6 +4,7 @@ namespace NaughtyCharacter
 {
 	public class PlayerCamera : MonoBehaviour
 	{
+
 		public float ControlRotationSensitivity = 0.0f;
 		public Transform Rig; // The root transform of the camera rig
 		public Transform Pivot; // The point at which the camera pivots around
@@ -13,12 +14,12 @@ namespace NaughtyCharacter
 		private Vector3 _cameraVelocity;
 		Vector2 controllRotation;
 
-		private void LateUpdate() 
+		private void LateUpdate()
 		{
 			SetPosition(Target.transform.position);
 			Vector2 CameraInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 			UpdateControlRotation();
-			
+
 			// Adjust the pitch angle (X Rotation)
 			float pitchAngle = controllRotation.x;
 			pitchAngle -= CameraInput.y * ControlRotationSensitivity;
@@ -62,4 +63,5 @@ namespace NaughtyCharacter
 			controllRotation = new Vector2(pitchAngle, yawAngle);
 		}
 	}
+
 }

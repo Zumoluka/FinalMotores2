@@ -4,6 +4,7 @@ namespace NaughtyCharacter
 {
 	public class SpringArm : MonoBehaviour
 	{
+        
 		public float TargetLength = 3.0f;
 		public float SpeedDamp = 0.0f;
 		public Transform CollisionSocket;
@@ -105,5 +106,6 @@ namespace NaughtyCharacter
 
 			return point;
 		}
-	}
+
+    }
 }

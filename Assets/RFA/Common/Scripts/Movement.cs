@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Retro.ThirdPersonCharacter
 {
@@ -101,6 +102,10 @@ namespace Retro.ThirdPersonCharacter
                 {
                     playerHealth.TakeDamage(10);
                 }
+            }
+            if (hit.gameObject.tag == "Finish")
+            {
+                SceneManager.LoadScene(0);
             }
         }
     }
