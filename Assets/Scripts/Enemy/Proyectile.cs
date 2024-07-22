@@ -21,7 +21,7 @@ public class Proyectile : MonoBehaviour
             Debug.Log("Daño");
             playerHealth.TakeDamage(damage);
         }
-        Destroy(gameObject);
+;
     }
 
 }
